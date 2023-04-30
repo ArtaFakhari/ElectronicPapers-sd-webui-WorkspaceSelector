@@ -1,3 +1,4 @@
+#!/bin/bash
 
 reply=1
 
