@@ -1,16 +1,16 @@
-#!/bin/bash
 
-items=(1 "Profile 1"
-       2 "Profile 2")
+reply=1
 
-while choice=$(dialog --title "$TITLE" \
-                 --menu "Please select" 10 40 3 "${items[@]}" \
-                 2>&1 >/dev/tty)
-    do
-    case $choice in
-        1) ;; webui --config config1.json
-        2) ;; webui --config config2.json
-        *) ;; # some action on other
-    esac
+while [ $reply -eq 1 ]; do
+
+    fileName=$(find . -maxdepth 1 -name 'config*.json' | tr ' ' '\n' | zenity --list --title "Select your config-xxx.json" --text "Finding all header files.." --column "Files")
+
+    if [ "$fileName" != "" ]; then
+        echo $fileName config file is selected
+        ./webui.sh --config $fileName
+
+        reply=0
+    fi
+    reply=0
+    break
 done
-clear # clear after user pressed Cancel
